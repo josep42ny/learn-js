@@ -11,12 +11,25 @@
   <script>
 
     function schedule(members, tasks, weeks) {
+      const daysPerWeek = Math.min(tasks.length, 7);
+      const days = daysPerWeek * weeks;
 
-      let result = [];
-      let days = 0;
-      for (let task of tasks) {
-        result.push();
+      const result = [];
+      let task = 0;
+      let member = 0;
+      let currentWeek = -1;
+      for (let day = 0; day < days; day++) {
+        newWeek = Math.floor(day / daysPerWeek);
+        if (currentWeek !== newWeek) {
+          currentWeek = newWeek;
+          result[currentWeek] = {};
+        }
+        result[currentWeek][tasks[task]] = members[member];
+        task = (task + 1) % tasks.length;
+        member = (member + 1) % members.length;
       }
+
+      console.table(result);
     }
 
     const familyGalmes = ['pare', 'mare', 'fill', 'filla'];
