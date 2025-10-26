@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+  <body>
+    <script>
+      function schedule(members, tasks, weeks) {
+        const daysPerWeek = Math.min(tasks.length, 7);
+        const days = daysPerWeek * weeks;
 
-<body>
-  <script>
-
-    function schedule(members, tasks, weeks) {
-      const daysPerWeek = Math.min(tasks.length, 7);
-      const days = daysPerWeek * weeks;
-
-      const result = [];
-      let task = 0;
-      let member = 0;
-      let currentWeek = -1;
-      for (let day = 0; day < days; day++) {
-        newWeek = Math.floor(day / daysPerWeek);
-        if (currentWeek !== newWeek) {
-          currentWeek = newWeek;
-          result[currentWeek] = {};
+        const result = [];
+        let task = 0;
+        let member = 0;
+        let currentWeek = -1;
+        for (let day = 0; day < days; day++) {
+          newWeek = Math.floor(day / daysPerWeek);
+          if (currentWeek !== newWeek) {
+            currentWeek = newWeek;
+            result[currentWeek] = {};
+          }
+          result[currentWeek][tasks[task]] = members[member];
+          task = (task + 1) % tasks.length;
+          member = (member + 1) % members.length;
         }
-        result[currentWeek][tasks[task]] = members[member];
-        task = (task + 1) % tasks.length;
-        member = (member + 1) % members.length;
+
+        console.table(result);
       }
 
-      console.table(result);
-    }
+      const familyGalmes = ['pare', 'mare', 'fill', 'filla'];
+      const tasksGalmes = ['rentadora', 'cuina', 'bany'];
+      schedule(familyGalmes, tasksGalmes, 52);
 
-    const familyGalmes = ['pare', 'mare', 'fill', 'filla'];
-    const tasksGalmes = ['rentadora', 'cuina', 'bany'];
-    schedule(familyGalmes, tasksGalmes, 52);
+      const familyDuran = ['pare', 'mare', 'fill', 'filla'];
+      const tasksDuran = ['planxar', 'bany'];
+      schedule(familyDuran, tasksDuran, 4);
 
-    const familyDuran = ['pare', 'mare', 'fill', 'filla'];
-    const tasksDuran = ['planxar', 'bany'];
-    schedule(familyDuran, tasksDuran, 4);
-
-    const familySastre = ['pare', 'mare', 'fill', 'filla gran', 'filla petita'];
-    const tasksSastre = ['rentadora', 'cuina', 'netejar', 'planxar', 'bany'];
-    schedule(familySastre, tasksSastre, 12);
-
-  </script>
-</body>
-
+      const familySastre = [
+        'pare',
+        'mare',
+        'fill',
+        'filla gran',
+        'filla petita',
+      ];
+      const tasksSastre = ['rentadora', 'cuina', 'netejar', 'planxar', 'bany'];
+      schedule(familySastre, tasksSastre, 12);
+    </script>
+  </body>
 </html>
