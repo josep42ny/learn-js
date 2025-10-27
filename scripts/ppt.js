@@ -1,91 +1,112 @@
-(() => {
-  initView();
-  play();
-})();
-
 // Logica
-const LEADERBOARD = [{}];
+class Game {
+  #view;
+  #leaderboard;
 
-function play() {
-  const VALID_MOVES = ['pedra', 'paper', 'tisores'],
-    WIN_STATES = ['pedratisores', 'paperpedra', 'tisorespaper'];
+  constructor() {
+    this.#view = new View(this);
+    this.#leaderboard = [{}];
+  }
 
-  const playerMove = getPlayerMove(VALID_MOVES),
-    rivalMove = getRivalMove(VALID_MOVES),
-    gameState = playerMove + rivalMove;
+  run() {
+    const VALID_MOVES = ['pedra', 'paper', 'tisores'],
+      WIN_STATES = ['pedratisores', 'paperpedra', 'tisorespaper'];
 
-  if (playerMove === rivalMove) {
-    draw(playerMove, rivalMove, 'Heu empatat');
-  } else {
-    draw(
-      playerMove,
-      rivalMove,
-      WIN_STATES.includes(gameState) ? 'Has guanyat' : 'Has perdut'
-    );
+    this.#playRound(VALID_MOVES, WIN_STATES);
+  }
+
+  #playRound(validMoves, winStates) {
+    const playerMove = this.#getPlayerMove(validMoves),
+      rivalMove = this.#getRivalMove(validMoves),
+      gameState = playerMove + rivalMove;
+
+    if (playerMove === rivalMove) {
+      this.#addScore(playerMove, rivalMove, 'Empat');
+      this.#view.draw(playerMove, rivalMove, 'Heu empatat');
+    } else {
+      const won = winStates.includes(gameState);
+      this.#addScore(playerMove, rivalMove, won ? 'Jugador' : 'Rival');
+      this.#view.draw(
+        playerMove,
+        rivalMove,
+        won ? 'Has guanyat' : 'Has perdut'
+      );
+    }
+    console.log(this.#leaderboard);
+  }
+
+  #getPlayerMove(constraints) {
+    return Utils.askString('Juga', constraints);
+  }
+
+  #getRivalMove(constraints) {
+    return constraints[Math.floor(Math.random() * constraints.length)];
+  }
+
+  #addScore(playerMove, rivalMove, winner) {
+    this.#leaderboard.push({
+      winner: winner,
+      playerMove: playerMove,
+      rivalMove: rivalMove,
+    });
   }
 }
 
-function getPlayerMove(constraints) {
-  return askString('Juga', constraints);
-}
-
-function getRivalMove(constraints) {
-  return constraints[Math.floor(Math.random() * constraints.length)];
-}
-
-function addScore(playerMove, rivalMove, winner) {
-  LEADERBOARD.push({
-    winner: winner,
-    playerMove: playerMove,
-    rivalMove: rivalMove,
-  });
-}
-
-// // Utils
-function askString(text, constraints = []) {
-  while (true) {
-    const input = prompt(text).toLowerCase();
-
-    if (validateString(input, constraints)) {
-      return input;
+class Utils {
+  static askString(text, constraints = []) {
+    while (true) {
+      const input = prompt(text).toLowerCase();
+      if (this.validateString(input, constraints)) {
+        return input;
+      }
     }
   }
-}
 
-function validateString(value, constraints) {
-  if (!value) return false;
-  return constraints.includes(value);
+  static validateString(value, constraints) {
+    if (!value) return false;
+    return constraints.includes(value);
+  }
 }
 
 // Vista
-function initView() {
-  const root = document.querySelector('#app'),
-    handIds = ['playerHand', 'rivalHand'];
+class View {
+  constructor() {
+    const root = document.querySelector('#app'),
+      handIds = ['playerHand', 'rivalHand'];
 
-  handIds.forEach((id) => {
-    (hand = document.createElement('IMG')), (hand.id = id);
-    hand.classList = 'hand';
-    hand.src = moveToImagePath('paper');
-    hand.addEventListener('mouseover', handleHoverStart);
-    root.appendChild(hand);
-  });
+    handIds.forEach((id) => {
+      const hand = document.createElement('IMG');
+      hand.id = id;
+      hand.classList = 'hand';
+      hand.src = this.#moveToImagePath('paper');
+      hand.addEventListener('mouseover', (e) => this.#handleHoverStart(e));
+      root.appendChild(hand);
+    });
+  }
+
+  draw(playerMove, rivalMove, result) {
+    document.querySelector('#playerHand').src =
+      this.#moveToImagePath(playerMove);
+    document.querySelector('#rivalHand').src = this.#moveToImagePath(rivalMove);
+  }
+
+  #handleHoverStart(event) {
+    event.target.src = this.#moveToImagePath('paper');
+  }
+
+  #moveToImagePath(move) {
+    const MAP = {
+      pedra: 'hand0.png',
+      tisores: 'hand2.png',
+      paper: 'hand5.png',
+    };
+
+    return `../assets/img/${MAP[move]}`;
+  }
 }
 
-function draw(playerMove, rivalMove, result) {
-  document.querySelector('#playerHand').src = moveToImagePath(playerMove);
-  document.querySelector('#rivalHand').src = moveToImagePath(rivalMove);
-}
-
-function handleHoverStart(event) {
-  event.target.src = moveToImagePath('paper');
-}
-
-function moveToImagePath(move) {
-  const MAP = {
-    pedra: 'hand0.png',
-    tisores: 'hand2.png',
-    paper: 'hand5.png',
-  };
-
-  return `../assets/img/${MAP[move]}`;
-}
+(() => {
+  // initView();
+  // play();
+  new Game().run();
+})();
