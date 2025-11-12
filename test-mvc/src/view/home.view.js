@@ -1,19 +1,14 @@
-const API_BASE_URL = 'https://randomuser.me/api/';
-
-fetch(`${API_BASE_URL}?results=1&inc=name,email,gender,picture`)
-  .then((response) => response.json())
-  .then(draw);
-
-function draw(data) {
+export function draw(person) {
   const root = document.querySelector('#app');
-  const person = data.results[0];
   const isFemale = person.gender === 'female';
 
   for (let [key, value] of Object.entries(person)) {
     switch (key) {
-      case 'name':
-        root.appendChild(entry('Nom', value.first));
-        root.appendChild(entry('Cognom', value.last));
+      case 'firstName':
+        root.appendChild(entry('Nom', value));
+        break;
+      case 'lastName':
+        root.appendChild(entry('Cognom', value));
         break;
       case 'email':
         root.appendChild(entry('E-mail', value));
@@ -24,7 +19,7 @@ function draw(data) {
         root.appendChild(entry('Genere', name, css));
         break;
       case 'picture':
-        root.appendChild(image(value.large));
+        root.appendChild(image(value));
         break;
       default:
         break;
