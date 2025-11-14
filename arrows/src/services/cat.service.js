@@ -2,7 +2,7 @@ import { Cat } from '../model/Cat.js';
 
 export class CatService {
   API_BASE_URL = 'https://api.thecatapi.com/v1/images/search';
-  REQUEST_OPTIONS = {
+  requestOptions = {
     method: 'GET',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -11,21 +11,17 @@ export class CatService {
     }),
     redirect: 'follow',
   };
-
   /**
    *
    * @returns Promise<Cat>
    */
-  getCats(limit = 20, page = 0) {
-    return fetch(
-      `${this.API_BASE_URL}?limit=${limit}&page${page}&order=ASC&has_breeds=1`,
-      this.REQUEST_OPTIONS
-    )
+  getCats() {
+    return fetch(`${this.API_BASE_URL}?limit=20`, this.requestOptions)
       .then((response) => response.json())
       .then((data) => {
         let cats = [];
         data.forEach((point) => {
-          cats.push(new Cat(point.id, point.breeds[0].name, point.url));
+          cats.push(new Cat(point.id, point.url));
         });
         return cats;
       });

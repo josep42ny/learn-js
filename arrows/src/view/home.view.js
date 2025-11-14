@@ -1,10 +1,10 @@
 export function drawCats(cats) {
-  cats.forEach(drawCat);
+  cats.forEach(draw);
 }
 
-function drawCat(cat) {
+function draw(cat) {
   const root = document.querySelector('#app');
-  root.appendChild(figure(cat.url, cat.breed));
+  root.appendChild(figure(cat.url, cat.id));
 }
 
 function figure(url, caption = '') {

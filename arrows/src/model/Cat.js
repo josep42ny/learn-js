@@ -1,7 +1,6 @@
 export class Cat {
-  constructor(id, breed, url) {
+  constructor(id, url) {
     this.id = id;
-    this.breed = breed;
     this.url = url;
   }
 }
