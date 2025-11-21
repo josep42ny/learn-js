@@ -1,29 +1,16 @@
 export class CarListView {
-  constructor() {
-    this.#init();
-  }
-
-  #init() {
-    const root = document.querySelector('#carList');
+  init(callback) {
+    const root = document.querySelector('#carSearch');
     root.appendChild(
-      this.#buildInput((e) => {
-        console.log(e.target.value);
-      })
-    );
-    root.appendChild(
-      this.#buildInput((e) => {
-        console.log(e.target.value);
-      })
-    );
-    root.appendChild(
-      this.#buildInput((e) => {
-        console.log(e.target.value);
+      this.#buildInput(function (e) {
+        callback(e.target.value);
       })
     );
   }
 
   drawCars(cars) {
     const root = document.querySelector('#carList');
+    root.innerHTML = '';
 
     for (let car of cars) {
       const elem = document.createElement('LI');
