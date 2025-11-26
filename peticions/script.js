@@ -1,3 +1,5 @@
+(async () => await init())();
+
 // Vista
 const root = document.querySelector('#app');
 const list = document.createElement('UL');
@@ -11,18 +13,19 @@ function addEntry(value) {
 }
 
 // Servei
-const p = [];
+async function init() {
+  const p = [];
 
-for (let i = 1; i <= 10; i++) {
-  p.push(
-    fetch(
-      `https://theteacher.codiblau.com/public/exercicis/other/asincron-get?num=${i}`
-    ).then((data) => data.text())
-  );
-}
+  for (let i = 1; i <= 10; i++) {
+    p.push(
+      fetch(
+        `https://theteacher.codiblau.com/public/exercicis/other/asincron-get?num=${i}`
+      ).then((data) => data.text())
+    );
+  }
 
-Promise.all(p).then((rs) => {
+  const rs = await Promise.all(p);
   for (let r of rs) {
     addEntry(r);
   }
-});
+}

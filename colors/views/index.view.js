@@ -3,9 +3,10 @@ export function init(callback) {
 
   const btn = document.createElement('BUTTON');
   // TODO
-  btn.addEventListener('click', callback, 100, 150);
+  btn.addEventListener('click', () => callback(100, 200));
   btn.innerText = 'Generate';
   root.appendChild(btn);
+  fetch;
 
   const element = document.createElement('DIV');
   element.id = 'rectangle';

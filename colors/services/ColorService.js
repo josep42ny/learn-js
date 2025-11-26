@@ -1,12 +1,12 @@
 import { update } from '../views/index.view.js';
-import { Rectangle } from './model/Rectangle.js';
+import { Rectangle } from '../model/Rectangle.js';
 
 export default class ColorService {
   constructor() {
     this.get();
   }
 
-  get(min, max) {
+  get(min = 0, max = 200) {
     const URL = `https://theteacher.codiblau.com/public/exercicis/other/color?min=${min}&max=${max}`;
     const METHOD = 'GET';
     const request = new XMLHttpRequest();
