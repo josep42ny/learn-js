@@ -2,7 +2,6 @@ export function init(callback) {
   const root = document.querySelector('#app');
 
   const btn = document.createElement('BUTTON');
-  // TODO
   btn.addEventListener('click', () => callback(100, 200));
   btn.innerText = 'Generate';
   root.appendChild(btn);

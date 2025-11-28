@@ -25,8 +25,4 @@ export default class ColorService {
     request.setRequestHeader('Content-Type', 'application/json');
     request.send();
   }
-
-  #parseRectangle(raw) {
-    return new Rectangle(raw.background, raw.color, raw.width, raw.height);
-  }
 }
