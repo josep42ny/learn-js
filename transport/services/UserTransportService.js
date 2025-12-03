@@ -2,8 +2,8 @@ import { Transport } from '../model/Transport.js';
 import { User } from '../model/User.js';
 
 export class UserTransportService {
-  async getUsers() {
-    return await fetch(
+  getUsers() {
+    return fetch(
       `https://theteacher.codiblau.com/public/exercicis/other/usuaris/list`
     )
       .then((response) => response.json())
@@ -12,7 +12,6 @@ export class UserTransportService {
         for (let user of users) {
           n.push(this.#mapUser(user));
         }
-        console.log(n);
         return Promise.all(n);
       });
   }

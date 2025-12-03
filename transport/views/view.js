@@ -12,7 +12,10 @@ export class UserTransportView {
 
     tr.appendChild(this.#element('TD', user.name));
     tr.appendChild(this.#element('TD', user.surname1));
-    tr.appendChild(this.#imgElement(user.transport));
+    const img = this.#imgElement(user.transport);
+    const imgTd = tr.appendChild(this.#element('TD'));
+    imgTd.appendChild(img);
+    tr.appendChild(imgTd);
 
     table.appendChild(tr);
   }
