@@ -20,7 +20,13 @@ export class AirportViews {
     tr.appendChild(this.#element('TD', airport.longitude));
     tr.appendChild(this.#element('TD', airport.city));
 
-    const marker = L.marker([airport.latitude, airport.longitude]);
+    const marker = L.circle([airport.latitude, airport.longitude], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 1,
+    });
+    // const marker = L.marker([airport.latitude, airport.longitude]);
     marker.bindPopup(
       `<h5>${airport.code}</h5>${airport.name}<br><small>${airport.city}</small>`
     );
@@ -31,11 +37,14 @@ export class AirportViews {
 
   #initMap() {
     const map = L.map('map').setView([0, 0], 2);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
+    L.tileLayer(
+      'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png',
+      {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }
+    ).addTo(map);
     return map;
   }
 
