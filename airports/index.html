@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Airports</title>
-    <!-- <link
+    <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/concrete.css/3.0.0/concrete.min.css"
-    /> -->
+      href="https://unpkg.com/@acab/reset.css@0.11.0/index.css"
+    />
     <script type="module" src="index.js" defer></script>
     <link
       rel="stylesheet"
@@ -21,8 +21,21 @@
       crossorigin=""
     ></script>
     <style>
+      main {
+        display: flex;
+        justify-content: flex-end;
+      }
+      #app {
+        padding: 2rem 2rem;
+      }
       #map {
-        height: 750px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        width: 70vw;
+      }
+      section:last-child {
+        width: 30vw;
       }
     </style>
   </head>

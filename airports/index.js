@@ -1,8 +1,11 @@
 import { AirportService } from './services/AirportService.js';
 import { AirportViews } from './views/AirportViews.js';
 
-(() => {
+(async () => {
   const service = new AirportService();
-  const view = new AirportViews();
-  service.get().then((airports) => view.drawAll(airports));
+  const airports = await service.get();
+
+  const view = new AirportViews(service.filter, airports);
+
+  view.drawAll(airports);
 })();

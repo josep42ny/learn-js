@@ -1,10 +1,12 @@
 export class AirportViews {
-  constructor() {
+  constructor(callback, airports) {
     this.map = this.#initMap();
-    this.#initTable();
+    this.#initTable(callback, airports);
   }
 
   drawAll(airports) {
+    const table = document.querySelector('#app table');
+    table.innerHTML = '';
     for (const airport of airports) {
       this.draw(airport);
     }
@@ -24,7 +26,7 @@ export class AirportViews {
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5,
-      radius: 1,
+      radius: 500,
     });
     // const marker = L.marker([airport.latitude, airport.longitude]);
     marker.bindPopup(
@@ -48,7 +50,7 @@ export class AirportViews {
     return map;
   }
 
-  #initTable() {
+  #initTable(callback, airports) {
     const root = document.querySelector('#app');
     const table = this.#element('TABLE');
     const trHeader = this.#element('TR');
@@ -59,7 +61,17 @@ export class AirportViews {
     trHeader.appendChild(this.#element('TH', 'Longitude'));
     trHeader.appendChild(this.#element('TH', 'City'));
 
+    /////// TODO ///////
+    const searchbox = document.createElement('INPUT');
+    searchbox.name = 'query';
+    searchbox.addEventListener('input', async (e) => {
+      const filtered = await callback(airports, e.target.value);
+      console.log(filtered);
+      this.drawAll(filtered);
+    });
+
     table.appendChild(trHeader);
+    root.appendChild(searchbox);
     root.appendChild(table);
   }
 
@@ -67,11 +79,5 @@ export class AirportViews {
     const elem = document.createElement(tag);
     elem.innerHTML = inner;
     return elem;
-  }
-
-  #imgElement(url) {
-    const img = document.createElement('IMG');
-    img.src = url;
-    return img;
   }
 }
