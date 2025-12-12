@@ -1,0 +1,57 @@
+[
+    {
+        "asteroid_name": "POLI-96590-1998-XB",
+        "asteroid_diameter_mm": 1.6284176E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2003-JV14",
+        "asteroid_diameter_mm": 1.60726752E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2008-WZ94",
+        "asteroid_diameter_mm": 1.60881552E8,
+        "asteroid_esperillos": false
+    },
+    {
+        "asteroid_name": "POLI-2011-YE40",
+        "asteroid_diameter_mm": 1.60539232E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2012-AB11",
+        "asteroid_diameter_mm": 1.60647744E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2013-NT11",
+        "asteroid_diameter_mm": 1.6104896E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2016-GZ215",
+        "asteroid_diameter_mm": 1.60760352E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2017-UJ2",
+        "asteroid_diameter_mm": 1.60502832E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2017-WQ1",
+        "asteroid_diameter_mm": 1.60543408E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2019-AE3",
+        "asteroid_diameter_mm": 1.6051424E8,
+        "asteroid_esperillos": true
+    },
+    {
+        "asteroid_name": "POLI-2020-BG1",
+        "asteroid_diameter_mm": 1.60666544E8,
+        "asteroid_esperillos": true
+    }
+]

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>The Asteroid Project</title>
+    <script type="module" src="index.js" defer></script>
+    <link rel="stylesheet" href="assets/css/nasa.css" />
+  </head>
+
+  <body>
+    <header>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png"
+        alt="logo nasa"
+        width="1200"
+        height="993"
+      />
+    </header>
+    <main>
+      <aside>
+        <select id="dates" multiple></select>
+        <button id="cerca">Cerca asteroides</button>
+        <p>Prem Ctrl o Cmd per seleccionar vàries dates a la vegada</p>
+      </aside>
+      <section>
+        <div>
+          <h2>Resultat</h2>
+        </div>
+        <div id="taula">Sense Resultats</div>
+        <div id="paginacio">
+          <button id="anterior">Anterior</button>
+          <button id="seguent">Següent</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+  </body>
+</html>
