@@ -9,6 +9,14 @@ export class NasaSerice {
       .then((json) => json.map((obj) => this.#toAsteroid(obj)));
   }
 
+  async filter(date) {
+    if (!date) {
+      return null;
+    }
+
+    return await this.get(date);
+  }
+
   #toAsteroid(rawAsteroid) {
     return new Asteroid(
       rawAsteroid.asteroid_name,
