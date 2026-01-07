@@ -1,7 +1,7 @@
 import { Asteroid } from '../model/Asteroid.js';
 
 export class NasaSerice {
-  get(date) {
+  #get(date) {
     return fetch(
       `https://theteacher.codiblau.com/public/exercicis/nasa?date=${date}`
     )
@@ -9,12 +9,18 @@ export class NasaSerice {
       .then((json) => json.map((obj) => this.#toAsteroid(obj)));
   }
 
-  async filter(date) {
-    if (!date) {
+  async filter(dates) {
+    if (!dates) {
       return null;
     }
 
-    return await this.get(date);
+    const p = [];
+    dates.forEach((date) => {
+      p.push(this.#get(date));
+    });
+
+    const asteroids = await Promise.all(p);
+    return asteroids.flat();
   }
 
   #toAsteroid(rawAsteroid) {
